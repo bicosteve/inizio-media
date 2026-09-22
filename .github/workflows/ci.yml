@@ -24,7 +24,7 @@ jobs:
               run: pipenv sync --dev
 
             - name: Verify pytest installation
-              run: pipenv run putest --version
+              run: pipenv run pytest --version
 
             - name: Run tests
               run: pipenv run pytest -q
