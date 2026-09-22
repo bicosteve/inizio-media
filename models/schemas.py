@@ -1,12 +1,12 @@
 from typing import Literal
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
 
 
 class SearchResult(BaseModel):
-    position: str
+    position: int
     title: str
-    url: HttpUrl
+    url: str
     snippet: str | None
 
 
