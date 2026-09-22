@@ -33,6 +33,8 @@ websockets = "==17.1"
 pytest-mock = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-mock = "*"
 httpx = "*"
 httpx2 = "*"
 
