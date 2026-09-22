@@ -28,6 +28,7 @@ def test_search_service_returns_search_response():
 
     provider = FakeProvider(provider_response)
     service = SearchService(provider)
+
     response = service.search("fastapi")
 
     assert response.query == "fastapi"
@@ -38,5 +39,5 @@ def test_search_service_returns_search_response():
     assert response.results[0].position == 1
     assert response.results[0].title == "FastAPI"
 
-    assert response.results[0].position == 2
-    assert response.results[0].title == "Python"
+    assert response.results[1].position == 2
+    assert response.results[1].title == "Python"
