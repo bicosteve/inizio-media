@@ -1,19 +1,22 @@
-from pathlib import Path
+import os
 
+from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, Query
 
 from models.search import SearchResponse
-from providers.google_provider import GoogleSearchProvider
+from providers.google_provider import SearchProvider
 from services.search_service import SearchService
 
+load_dotenv()
 router = APIRouter()
 
-FIXTURE_PATH = (
-    Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "google_serp.json"
-)
+api_key = os.getenv("SERPAPI_KEY")
+
+if not api_key:
+    raise RuntimeError("SERPAPI_KEY not set")
 
 
-provider = GoogleSearchProvider(fixture_path=FIXTURE_PATH)
+provider = SearchProvider(api_key=api_key)
 search_service = SearchService(provider=provider)
 
 
