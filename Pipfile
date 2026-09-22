@@ -30,7 +30,6 @@ uvicorn = "==0.53.0"
 uvloop = "==0.22.1"
 watchfiles = "==1.2.0"
 websockets = "==17.1"
-pytest-mock = "*"
 
 [dev-packages]
 pytest = "*"

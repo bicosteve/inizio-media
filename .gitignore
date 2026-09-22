@@ -34,8 +34,7 @@ env/
 env.bak/
 venv.bak/
 
-# Pipenv
-Pipfile.lock
+
 
 
 
