@@ -12,6 +12,6 @@ class SearchResult(BaseModel):
 
 class SearchResponse(BaseModel):
     query: str
-    engine: str
+    engine: Literal["google"]
     page: Literal[1]
     results: list[SearchResult]

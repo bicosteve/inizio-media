@@ -1,4 +1,4 @@
-from models.schemas import SearchResult
+from models.search import SearchResult
 
 
 def extract_organic_results(data: dict) -> list[SearchResult]:
