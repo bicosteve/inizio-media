@@ -24,7 +24,7 @@ def get_search_service() -> SearchService:
     return SearchService(provider=provider)
 
 
-@router.get("/")
+@router.get("/", include_in_schema=False)
 def search_page(
     request: Request,
     q: str = Query(default=""),
