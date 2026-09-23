@@ -1,0 +1,68 @@
+name: CI/CD
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.14"
+
+            - name: Install Pipenv
+              run: pip install pipenv
+
+            - name: Install dependencies
+              run: pipenv sync --dev
+
+            - name: Verify pytest installation
+              run: pipenv run pytest --version
+
+            - name: Run tests
+              run: pipenv run pytest -q
+
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4
+
+            - name: Build Docker image
+              run: docker build -t google-search-extractor:test .
+
+    publish:
+        if: github.ref == 'refs/heads/main'
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Log in to DockerHub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERMANE }}
+                  password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+            - name: Build Docker Image
+              run: |
+                  docker build \
+                      -t ${{ secrets.DOCKERHUB_USERNAME }}/google-search-extractor:${{ github.sha }} \
+                      -t ${{ secrets.DOCKERHUB_USERNAME }}/google-search-extractor:latest \
+                      .
+
+            - name: Push image
+              run: |
+                  docker push ${{ secrets.DOCKERHUB_USERNAME }}/google-search-extractor:${{ github.sha }}
+                  docker push ${{ secrets.DOCKERHUB_USERNAME }}/google-search-extractor:latest

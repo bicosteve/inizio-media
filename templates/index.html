@@ -3,93 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Form</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
 
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
-      .form-container {
-        background: #ffffff;
-        padding: 24px 32px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
-      }
-
-      .form-container h2 {
-        margin-bottom: 20px;
-        color: #333333;
-      }
-
-      .form-group {
-        margin-bottom: 16px;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-        color: #555555;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 14px;
-      }
-
-      .form-group textarea {
-        resize: vertical;
-        height: 100px;
-      }
-
-      button[type='submit'] {
-        width: 100%;
-        padding: 12px;
-        background-color: #0066cc;
-        color: #ffffff;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-      }
-
-      button[type='submit']:hover {
-        background-color: #0052a3;
-      }
-    </style>
+    <title>Google Organic Search</title>
   </head>
-  <body>
-    <div>
-      <h2>Search Something</h2>
-      <form action="/submit" method="POST">
-        <div class="form-group">
-          <label for="term">Search Term</label>
-          <input
-            type="text"
-            id="term"
-            name="term"
-            placeholder="Enter your search term"
-          />
-        </div>
 
-        <button type="submit">Search</button>
+  <body>
+    <div class="container">
+      <h1>Organic Search</h1>
+
+      <form method="get" action="/" class="search-form">
+        <input
+          type="text"
+          name="q"
+          placeholder="Enter a search phrase..."
+          class="search-input"
+          required
+        />
+
+        <button type="submit" class="search-button">Search</button>
       </form>
+
+      {% if response %}
+
+      <h2 class="results-heading">Results for "{{ response.query }}"</h2>
+
+      {% if response.results %} {% for result in response.results %}
+
+      <article class="result-card">
+        <h3 class="result-title">
+          <span class="position"> {{ result.position }}. </span>
+
+          <a href="{{ result.url }}" target="_blank" rel="noopener noreferrer">
+            {{ result.title }}
+          </a>
+        </h3>
+
+        <span class="result-url"> {{ result.url }} </span>
+
+        {% if result.snippet %}
+        <p class="result-snippet">{{ result.snippet }}</p>
+        {% endif %}
+      </article>
+
+      {% endfor %} {% else %}
+
+      <div class="empty-results">No organic results found.</div>
+
+      {% endif %} {% endif %}
     </div>
   </body>
 </html>

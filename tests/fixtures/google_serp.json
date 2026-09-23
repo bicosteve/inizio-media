@@ -1,0 +1,43 @@
+{
+  "query": "fastapi python",
+  "ads": [
+    {
+      "position": 1,
+      "title": "Some Sponsored Result",
+      "link": "https://example.com/sponsored",
+      "snippet": "This is a paid advertisement."
+    }
+  ],
+  "knowledge_graph": {
+    "title": "FastAPI",
+    "description": "A modern Python web framework."
+  },
+  "people_also_ask": [
+    {
+      "question": "What is FastAPI?"
+    },
+    {
+      "question": "Is FastAPI better than Flask?"
+    }
+  ],
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "FastAPI",
+      "link": "https://fastapi.tiangolo.com/",
+      "snippet": "FastAPI framework, high performance, easy to learn, fast to code."
+    },
+    {
+      "position": 2,
+      "title": "FastAPI - Wikipedia",
+      "link": "https://en.wikipedia.org/wiki/FastAPI",
+      "snippet": "FastAPI is a web framework for building APIs with Python."
+    },
+    {
+      "position": 3,
+      "title": "Python",
+      "link": "https://www.python.org/",
+      "snippet": "Python is a programming language that lets you work quickly."
+    }
+  ]
+}
