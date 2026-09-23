@@ -2,11 +2,11 @@ name: Deploy
 
 on:
     workflow_dispatch:
-        inputs:
-            image_tag:
-                description: "Docker image tag to deploy"
-                required: true
-                type: string
+        # inputs:
+        #     image_tag:
+        #         description: "Docker image tag to deploy"
+        #         required: true
+        #         type: string
 
 permissions:
     contents: read
@@ -50,15 +50,11 @@ jobs:
                       SERPAPI_KEY=${{ secrets.SERPAPI_KEY }}
                       EOF
 
-                      export IMAGE_TAG="${{ inputs.image_tag }}"
+                      export IMAGE_TAG="${{ github.sha }}"
 
-                      docker compose \
-                        -f docker-compose.prod.yml \
-                        pull
+                      docker compose -f docker-compose.prod.yml pull
 
-                      docker compose \
-                        -f docker-compose.prod.yml \
-                        up -d
+                      docker compose -f docker-compose.prod.yml up -d
 
                       docker ps
 
