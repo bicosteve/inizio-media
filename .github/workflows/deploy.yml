@@ -16,7 +16,28 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Deploy to VM
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Create project directory
+              uses: appleboy/ssh-action@v1
+              with:
+                  host: ${{ secrets.VM_HOST }}
+                  username: ${{ secrets.VM_USERNAME }}
+                  key: ${{ secrets.VM_SSH_KEY }}
+                  script: |
+                      mkdir -p "${{ secrets.PROJECT_DIR }}"
+
+            - name: Copy production compose file
+              uses: appleboy/scp-action@v1
+              with:
+                  host: ${{ secrets.VM_HOST }}
+                  username: ${{ secrets.VM_USERNAME }}
+                  key: ${{ secrets.VM_SSH_KEY }}
+                  source: "docker-compose.prod.yml"
+                  target: "${{ secrets.PROJECT_DIR }}"
+
+            - name: Deploy to the app
               uses: appleboy/ssh-action@v1
               with:
                   host: ${{ secrets.VM_HOST }}
@@ -25,8 +46,20 @@ jobs:
                   script: |
                       cd "${{ secrets.PROJECT_DIR }}"
 
+                      cat > .env <<'EOF'
+                      SERPAPI_KEY=${{ secrets.SERPAPI_KEY }}
+                      EOF
+
                       export IMAGE_TAG="${{ inputs.image_tag }}"
 
-                      docker compose pull
-                      docker compose up -d
+                      docker compose \
+                        -f docker-compose.prod.yml \
+                        pull
+
+                      docker compose \
+                        -f docker-compose.prod.yml \
+                        up -d
+
+                      docker ps
+
                       docker image prune -f
