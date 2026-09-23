@@ -1,0 +1,13 @@
+services:
+  app:
+    image: bixoloo/google-search-extractor:${IMAGE_TAG}
+
+    container_name: google-search-extractor
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    env_file:
+      - .env
+
+    restart: unless-stopped
