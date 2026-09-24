@@ -1,3 +1,4 @@
+from models.search import SearchResponse
 from services.search_service import SearchService
 
 
@@ -8,6 +9,17 @@ class FakeProvider:
 
     def search(self, query: str) -> dict:
         return self.response
+
+
+class FakeHistoryRepository:
+    def __init__(self):
+        self.saved: list[SearchResponse] = []
+
+    def save(self, search) -> None:
+        self.saved.append(search)
+
+    def get_all(self):
+        return self.saved
 
 
 def test_search_service_returns_search_response():
@@ -27,7 +39,12 @@ def test_search_service_returns_search_response():
     }
 
     provider = FakeProvider(provider_response)
-    service = SearchService(provider)
+    history_repository = FakeHistoryRepository()
+
+    service = SearchService(
+        provider,
+        history_repository=history_repository,
+    )
 
     response = service.search("fastapi")
 

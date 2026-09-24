@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Search History</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <main>
+      <h1>Search History</h1>
+
+      {% if history %} {% for search in history %}
+
+      <section>
+        <h2>{{ search.query }}</h2>
+
+        <p>Searched: {{ search.searched_at }}</p>
+
+        <ol>
+          {% for result in search.results %}
+          <li>
+            <a href="{{ result.url }}" target="_blank"> {{ result.title }} </a>
+
+            {% if result.snippet %}
+            <p>{{ result.snippet }}</p>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ol>
+      </section>
+
+      {% endfor %} {% else %}
+
+      <p>No searches yet.</p>
+
+      {% endif %}
+    </main>
+  </body>
+</html>

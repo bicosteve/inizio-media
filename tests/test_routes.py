@@ -31,7 +31,7 @@ client = TestClient(app)
 
 
 def test_search_endpoint():
-    response = client.get("/search?q=fastapi")
+    response = client.get("/api/search?q=fastapi")
 
     assert response.status_code == 200
 
@@ -52,6 +52,6 @@ def test_search_endpoint():
 
 
 def test_search_endpoint_rejects_empty_query():
-    response = client.get("/search?q=")
+    response = client.get("/api/search?q=")
 
     assert response.status_code == 422
