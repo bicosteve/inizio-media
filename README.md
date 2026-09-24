@@ -299,12 +299,6 @@ http://127.0.0.1:8000
 `--reload` enables automatic application reloads during development when Python source files change.
 
 
-# Option 2 — Run With Docker
-
-Docker allows the application to run without installing the Python dependencies directly on the host machine.
-
-### Prerequisites
-
 Install:
 
 - Docker
@@ -799,7 +793,8 @@ Potential improvements include:
 ## Without Docker
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:bicosteve/inizio-media.git
+
 cd inizio-media
 
 pipenv install
@@ -824,7 +819,10 @@ http://127.0.0.1:8000/
 ## With Docker
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:bicosteve/inizio-media.git
+
+
+
 cd inizio-media
 
 cp .env.example .env
