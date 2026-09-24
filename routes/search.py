@@ -44,7 +44,12 @@ def index(request: Request):
 
 
 # ---- HTML: Perform search and render results ----
-@router.get("/search", include_in_schema=False, response_class=HTMLResponse)
+@router.get(
+    "/search",
+    include_in_schema=False,
+    response_class=HTMLResponse,
+    name="search_page",
+)
 def search_page(
     request: Request,
     q: str = Query(default=""),

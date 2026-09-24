@@ -15,7 +15,11 @@
     <div class="container">
       <h1>Organic Search</h1>
 
-      <form method="get" action="/search" class="search-form">
+      <form
+        method="get"
+        action="{{ url_for('search_page')}}"
+        class="search-form"
+      >
         <input
           type="text"
           name="q"
