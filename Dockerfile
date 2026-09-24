@@ -15,6 +15,10 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
+ENV ROOT_PATH=""
+
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*", "--root-path", "/gsearch"]
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*", "--root-path", "$ROOT_PATH"]
+
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips=* --root-path \"$ROOT_PATH\""]

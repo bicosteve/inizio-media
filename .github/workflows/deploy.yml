@@ -48,6 +48,7 @@ jobs:
 
                       cat > .env <<'EOF'
                       SERPAPI_KEY=${{ secrets.SERPAPI_KEY }}
+                      ROOT_PATH=/gsearch
                       EOF
 
                       export IMAGE_TAG="${{ github.sha }}"
