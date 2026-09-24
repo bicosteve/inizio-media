@@ -228,7 +228,7 @@ pipenv --version
 ## 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:bicosteve/inizio-media.git
 cd inizio-media
 ```
 
@@ -254,16 +254,6 @@ Enter the virtual environment:
 ```bash
 pipenv shell
 ```
-
-Alternatively, commands can be executed without entering the shell:
-
-```bash
-pipenv run <command>
-```
-
----
-
-## 3. Configure environment variables
 
 Create a `.env` file:
 
@@ -308,25 +298,6 @@ http://127.0.0.1:8000
 
 `--reload` enables automatic application reloads during development when Python source files change.
 
----
-
-# Running Without Docker — Makefile
-
-If the project includes the configured Makefile commands, you can use:
-
-```bash
-make run
-```
-
-to start the development server.
-
-Run the tests with:
-
-```bash
-make test
-```
-
----
 
 # Option 2 — Run With Docker
 
