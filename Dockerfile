@@ -15,6 +15,8 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
+RUN mkdir -p /app/data
+
 ENV ROOT_PATH=""
 
 EXPOSE 8000

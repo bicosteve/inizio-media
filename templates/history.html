@@ -3,44 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Search History</title>
-
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='/css/style.css') }}"
+      href="{{ url_for('static', path='css/style.css') }}"
     />
   </head>
 
   <body>
-    <main>
-      <h1>Search History</h1>
+    <div class="container">
+      <header class="header-nav">
+        <h1>Search History</h1>
+        <a href="{{ url_for('index') }}" class="nav-link">← Back to Search</a>
+      </header>
 
       {% if history %} {% for search in history %}
+      <section class="history-block">
+        <div class="history-meta">
+          <h2 class="results-heading">
+            <a
+              href="{{ url_for('search_page') }}?q={{ search.query }}"
+              class="history-query-link"
+            >
+              {{ search.query }}
+            </a>
+          </h2>
+          {% if search.searched_at %}
+          <span class="history-timestamp"
+            >Searched: {{ search.searched_at }}</span
+          >
+          {% endif %}
+        </div>
 
-      <section>
-        <h2>{{ search.query }}</h2>
-
-        <p>Searched: {{ search.searched_at }}</p>
-
-        <ol>
+        {% if search.results %}
+        <div class="history-results">
           {% for result in search.results %}
-          <li>
-            <a href="{{ result.url }}" target="_blank"> {{ result.title }} </a>
+          <article class="result-card">
+            <h3 class="result-title">
+              {% if result.position %}
+              <span class="position">{{ result.position }}.</span>
+              {% endif %}
+              <a
+                href="{{ result.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ result.title }}
+              </a>
+            </h3>
+
+            <span class="result-url">{{ result.url }}</span>
 
             {% if result.snippet %}
-            <p>{{ result.snippet }}</p>
+            <p class="result-snippet">{{ result.snippet }}</p>
             {% endif %}
-          </li>
+          </article>
           {% endfor %}
-        </ol>
+        </div>
+        {% else %}
+        <div class="empty-results">No cached results for this query.</div>
+        {% endif %}
       </section>
-
       {% endfor %} {% else %}
-
-      <p>No searches yet.</p>
-
+      <div class="empty-results">No search history recorded yet.</div>
       {% endif %}
-    </main>
+    </div>
   </body>
 </html>
