@@ -1,4 +1,5 @@
 import os
+from functools import lru_cache
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
@@ -15,6 +16,7 @@ templates = Jinja2Templates(directory="templates")
 router = APIRouter()
 
 
+@lru_cache
 def get_search_service() -> SearchService:
 
     api_key = os.getenv("SERPAPI_KEY")

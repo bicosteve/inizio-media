@@ -6,6 +6,7 @@ from models.search import SearchResponse
 
 
 class SearchHistoryRepository:
+
     def __init__(self, file_path: str = "data/searches.json"):
         self.file_path = Path(file_path)
 
